@@ -25,7 +25,7 @@ threads=$(grep processor /proc/cpuinfo | wc -l)
 cores=$(expr "$(grep "core id" /proc/cpuinfo | sort -u | wc -l)" \* 2)
 memory=$(free -h | awk '/Mem/{print ""$2" Total ("$4" Free)"}')
 # add together bytes of all attached disks
-storage=$(sum=0; while read bytes ; do sum=$(expr $bytes + $sum) ; done <<< $(lsblk -b | grep disk | awk '{print $4}') ; echo $sum)
+storage=$(sum=0; while read bytes ; do sum=$(expr $bytes + $sum) ; done <<< $(lsblk -b | awk '/disk/{print $4}') ; echo $sum)
 uptime=$(uptime -p)
 
 # determine division based on integer length
